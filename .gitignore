@@ -12,4 +12,3 @@ configure/*
 !configure/__init__.py
 !configure/example.ini
 conf/*
-test
