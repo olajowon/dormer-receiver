@@ -37,7 +37,7 @@ def storage_process(queue):
             time.sleep(1)
     logger.info('storage exit')
 
-#n = 0
+
 class StorageThread(threading.Thread):
     def __init__(self, thread_id, queue):
         threading.Thread.__init__(self)
@@ -71,10 +71,8 @@ class StorageThread(threading.Thread):
                             self.handle_metric_index(metric)
                             self.write_metric_datapoint(metric, datapoint)
                         except MetricContentError as e:
-                            if line.startswith('app'):
-                                logger.debug('storage-%d, %s, %s' % (self.thread_id, line, str(e)))
+                            logger.error('storage-%d, %s, %s' % (self.thread_id, line, str(e)))
                         except Exception as _:
-                            print(self.thread_id, 'error')
                             logger.error('storage-%d, %s, %s' % (self.thread_id, line, traceback.format_exc()))
             else:
                 time.sleep(1)
@@ -217,7 +215,6 @@ class StorageThread(threading.Thread):
                     raise e
 
     def write_metric_datapoint(self, metric, datapoint):
-        # global n
         tab_name = 't_%s' % hashlib.md5(metric.encode(encoding='utf-8')).hexdigest()
         sql = 'INSERT INTO %s USING metric_datapoints TAGS ("%s") VALUES (%d000, %s);' % (
             tab_name,
@@ -233,7 +230,3 @@ class StorageThread(threading.Thread):
                     raise e
             else:
                 break
-        # global n
-        # n += 1
-        # if n >= 20000:
-        #     print(time.time())
