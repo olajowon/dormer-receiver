@@ -13,7 +13,6 @@ PGID = os.getpgid(os.getpid())
 def start():
     print('#### start\n')
     status = os.system(f'source {VENV_DIR}/bin/activate && cd {PROJECT_DIR} && '
-                       f'pip install {PROJECT_DIR}/packages/TDengine/ && '
                        f'pip install -r {PROJECT_DIR}/requirements.txt && '
                        f'cp ./etc/supervisord.d/* /etc/supervisord.d/ && '
                        f'supervisorctl update dormer-receiver && '
@@ -30,7 +29,6 @@ def stop():
 def restart():
     print('#### restart\n')
     status = os.system(f'source {VENV_DIR}/bin/activate && cd {PROJECT_DIR} && '
-                       f'pip install {PROJECT_DIR}/packages/TDengine/ && '
                        f'pip install -r {PROJECT_DIR}/requirements.txt && '
                        f'cp ./etc/supervisord.d/* /etc/supervisord.d/ && '
                        f'supervisorctl update dormer-receiver && '
@@ -41,7 +39,6 @@ def restart():
 def pip():
     print('#### pip\n')
     status = os.system(f'source {VENV_DIR}/bin/activate && '
-                       f'pip install {PROJECT_DIR}/packages/TDengine/ && '
                        f'pip install -r {PROJECT_DIR}/requirements.txt')
     print('#### pip %s\n' % ('successful' if status == 0 else 'failure'))
 

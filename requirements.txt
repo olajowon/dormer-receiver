@@ -8,5 +8,5 @@ portalocker==2.0.0
 python-redis==0.2.2
 redis==3.5.3
 requests==2.24.0
-taos==2.0.5
+taospy
 urllib3==1.25.10
